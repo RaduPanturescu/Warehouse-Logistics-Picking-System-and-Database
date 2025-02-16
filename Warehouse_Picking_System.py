@@ -3,6 +3,8 @@ from datetime import datetime
 import random as r
 from querry import *
 from actions import *
+import requests
+from api_key import *
 
 # Connect to the SQLite database (or create it if it doesn't exist)
 CONNECT = sqlite3.connect('Example_Warehose.db')
@@ -128,18 +130,35 @@ def create_order(order_name, items):
 
 # ||| EXECUTE CODE ||| #
 
-shop_order = [
-    {'item_name': 'Gucci Flora', 'quantity': 100},
-    {'item_name': 'Dior Sauvage', 'quantity': 50}
-]
-
-
-
-
-# MAIN LOOP SEQUENCE
+# Main Program Loop
 # def main():
 #     return None
 
-# if __name__ == "__main__":
-#     cls()
-#     main()
+if __name__ == "__main__":
+
+    for letter in VALID_API_KEYS:
+
+        list = []
+        list.append(letter)
+        API_KEY = list[0]
+        print(API_KEY)
+    
+    # Define the URL and API key
+    url = "http://127.0.0.1:5000/inventory/add"
+    headers = {
+        "Content-Type": "application/json",
+        "X-API-Key": API_KEY
+    }
+    # Define the JSON body
+    data = {
+        "items": [
+            {"item_name": "Gucci Flora", "quantity": 100},
+            {"item_name": "Dior Sauvage", "quantity": 50}
+        ]
+    }
+    # Make the POST request
+    response = requests.post(url, json=data, headers=headers)
+
+    # Print the response
+    print(response.status_code)
+    print(response.json())

@@ -8,9 +8,6 @@ from api_key import *
 app = Flask(__name__)
 
 # === SECURITY: API KEY AUTHENTICATION === #
-# Define a list of valid API keys (for demonstration purposes)
-
-
 # Decorator to secure endpoints
 def require_api_key(f):
     @wraps(f)
@@ -22,12 +19,10 @@ def require_api_key(f):
         return f(*args, **kwargs)
     return decorated_function
 
-
 # Root Endpoint
 @app.route('/')
 def home():
     return "Welcome to the Warehouse API"
-
 
 # ********** GET REQUESTS **********
 @app.route('/inventory', methods=['GET'])
@@ -55,7 +50,7 @@ def check_all_active_db_API():
 
 # ********** POST REQUESTS **********
 
-# Add items to inventory   ????????
+# Add items to inventory trough SECURE API POST REQUEST
 @app.route('/inventory/add', methods=['POST'])
 @require_api_key  # Secure this endpoint
 def add_inventory():
@@ -73,5 +68,3 @@ def add_inventory():
 # Run the Flask API
 if __name__ == '__main__':
     app.run(debug = True)
-
-
