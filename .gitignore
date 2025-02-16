@@ -1,0 +1,14 @@
+# Ignore the .env file (contains environment variables like API keys)
+.env
+
+# Ignore the config.json file (contains sensitive configuration data)
+config.json
+
+# Ignore the __pycache__ directory (Python cache files)
+__pycache__/
+
+# Ignore the venv directory (Python virtual environment)
+venv/
+myenv/
+
+api_key.py
